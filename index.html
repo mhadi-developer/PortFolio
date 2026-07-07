@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhammad Hadi — Full Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --border: rgba(255, 255, 255, 0.07);
+      --accent: #e8c97a;
+      --accent2: #c47f6e;
+      --text: #e8e6f0;
+      --muted: #7a788a;
+      --green: #5fcc99;
+      --blue: #6ab3e8;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(10, 10, 15, 0.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      transition: padding .3s;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--accent);
+      letter-spacing: .04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: color .25s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10rem 5% 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* animated grid */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232, 201, 122, .04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232, 201, 122, .04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gridMove {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(60px);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(95, 204, 153, .08);
+      border: 1px solid rgba(95, 204, 153, .25);
+      color: var(--green);
+      font-family: 'Fira Code', monospace;
+      font-size: .78rem;
+      padding: .35rem .9rem;
+      border-radius: 999px;
+      margin-bottom: 1.8rem;
+      width: fit-content;
+      animation: fadeUp .8s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .3;
+      }
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -.02em;
+      margin-bottom: .4rem;
+      animation: fadeUp .8s .1s ease both;
+    }
+
+    .hero-name span {
+      color: var(--accent);
+    }
+
+    .hero-title {
+      font-family: 'Fira Code', monospace;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+      animation: fadeUp .8s .2s ease both;
+    }
+
+    .hero-title .hl {
+      color: var(--blue);
+    }
+
+    .hero-desc {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      animation: fadeUp .8s .3s ease both;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp .8s .4s ease both;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0f;
+      padding: .8rem 2rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: .9rem;
+      text-decoration: none;
+      letter-spacing: .04em;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(232, 201, 122, .3);
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: .8rem 2rem;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: .9rem;
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* glowing orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: rgba(232, 201, 122, .06);
+      top: -100px;
+      right: -100px;
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: rgba(106, 179, 232, .05);
+      bottom: 0;
+      left: 10%;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      padding: 7rem 5%;
+    }
+
+    .section-label {
+      font-family: 'Fira Code', monospace;
+      font-size: .78rem;
+      color: var(--accent);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: .7rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      max-width: 560px;
+      font-size: 1.02rem;
+      line-height: 1.75;
+      margin-bottom: 3.5rem;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── EXPERIENCE BANDS ── */
+    #about {
+      background: var(--surface);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .exp-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .exp-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .25s, transform .25s;
+    }
+
+    .exp-card:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      border-radius: 3px 0 0 3px;
+    }
+
+    .exp-card.green::before {
+      background: var(--green);
+    }
+
+    .exp-card.blue::before {
+      background: var(--blue);
+    }
+
+    .exp-role {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: .25rem;
+    }
+
+    .exp-company {
+      color: var(--accent);
+      font-size: .88rem;
+      font-weight: 600;
+      margin-bottom: .4rem;
+    }
+
+    .exp-company.green {
+      color: var(--green);
+    }
+
+    .exp-company.blue {
+      color: var(--blue);
+    }
+
+    .exp-period {
+      font-family: 'Fira Code', monospace;
+      font-size: .75rem;
+      color: var(--muted);
+      margin-bottom: .6rem;
+    }
+
+    .exp-desc {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.65;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .skill-group {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color .25s;
+    }
+
+    .skill-group:hover {
+      border-color: rgba(232, 201, 122, .4);
+    }
+
+    .skill-group-title {
+      font-family: 'Fira Code', monospace;
+      font-size: .8rem;
+      color: var(--accent);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .skill-group-title .icon {
+      font-size: 1rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: .8rem;
+      padding: .28rem .75rem;
+      border-radius: 5px;
+      font-family: 'Fira Code', monospace;
+      transition: background .2s, border-color .2s;
+    }
+
+    .tag:hover {
+      background: rgba(232, 201, 122, .08);
+      border-color: rgba(232, 201, 122, .3);
+    }
+
+    .tag.expert {
+      border-color: rgba(232, 201, 122, .4);
+      color: var(--accent);
+    }
+
+    .tag.advanced {
+      border-color: rgba(95, 204, 153, .35);
+      color: var(--green);
+    }
+
+    .tag.intermediate {
+      border-color: rgba(106, 179, 232, .35);
+      color: var(--blue);
+    }
+
+    .level-legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .8rem;
+      color: var(--muted);
+      font-family: 'Fira Code', monospace;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.e {
+      background: var(--accent);
+    }
+
+    .legend-dot.a {
+      background: var(--green);
+    }
+
+    .legend-dot.i {
+      background: var(--blue);
+    }
+
+    /* ── PROJECTS ── */
+    #projects {
+      background: var(--surface);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+      text-decoration: none;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(232, 201, 122, .35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .4);
+    }
+
+    .project-thumb {
+      height: 180px;
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-thumb iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none;
+      transform: scale(1);
+      transform-origin: top left;
+      filter: brightness(.85);
+    }
+
+    .project-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, var(--surface2));
+      z-index: 2;
+    }
+
+    .project-thumb-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      background: rgba(232, 201, 122, .15);
+      border: 1px solid rgba(232, 201, 122, .35);
+      color: var(--accent);
+      font-size: .7rem;
+      font-family: 'Fira Code', monospace;
+      padding: .2rem .6rem;
+      border-radius: 4px;
+      letter-spacing: .06em;
+    }
+
+    /* fallback colored banners */
+    .thumb-banner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      position: relative;
+    }
+
+    .tb-1 {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+
+    .tb-2 {
+      background: linear-gradient(135deg, #1a1215 0%, #2d1b1b 50%, #3d1f1f 100%);
+    }
+
+    .tb-3 {
+      background: linear-gradient(135deg, #0d1a14 0%, #132a1e 50%, #1a3d2c 100%);
+    }
+
+    .tb-4 {
+      background: linear-gradient(135deg, #12121a 0%, #1e1e30 50%, #2d2d4a 100%);
+    }
+
+    .tb-5 {
+      background: linear-gradient(135deg, #1f1712 0%, #2e2013 50%, #3d2b14 100%);
+    }
+
+    .project-body {
+      padding: 1.4rem 1.5rem 1.6rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-num {
+      font-family: 'Fira Code', monospace;
+      font-size: .75rem;
+      color: var(--muted);
+      margin-bottom: .4rem;
+    }
+
+    .project-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .5rem;
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.1rem;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      color: var(--accent);
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-decoration: none;
+      font-family: 'Fira Code', monospace;
+      transition: gap .2s;
+    }
+
+    .project-link:hover {
+      gap: .7rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #contact::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(232, 201, 122, .05) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .contact-box {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: .85rem 1.4rem;
+      border-radius: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: .9rem;
+      transition: border-color .25s, transform .25s;
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      color: var(--accent);
+    }
+
+    .contact-item .ci {
+      font-size: 1.1rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: .83rem;
+    }
+
+    footer span {
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      nav .nav-links {
+        display: none;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">MH.</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div style="position:relative;z-index:1;">
+      <div class="hero-badge">Available for Work &amp; Collaboration</div>
+      <h1 class="hero-name">Muhammad<br /><span>Hadi.</span></h1>
+      <p class="hero-title">
+        &lt;<span class="hl">FullStack</span> developer /&gt; &nbsp;·&nbsp; MERN · TypeScript · Next.js
+      </p>
+      <p class="hero-desc">
+        A passionate Full-Stack Developer specializing in MERN stack, TypeScript, and scalable web applications.
+        Active contributor to Pakistan's emergency cyber-response infrastructure and cross-platform e-commerce systems.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-ghost">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / EXPERIENCE -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="section-label">// whoami</div>
+        <div class="divider"></div>
+        <h2 class="section-title">Building real things,<br />solving real problems.</h2>
+        <p class="section-sub" style="margin-bottom:1.4rem;">
+          19-year-old Full-Stack Web Developer at Super Tech Institute, Rawalpindi.
+          I build production-grade web applications across the complete stack — from
+          database design to polished UIs — with a strong focus on clean architecture
+          and developer experience.
+        </p>
+        <p style="color:var(--muted);font-size:.95rem;line-height:1.75;max-width:520px;">
+          Beyond coursework, I contribute to live real-world projects: an ongoing engagement
+          with Pakistan's emergency cyber-response team (PKCERT) and cross-platform
+          e-commerce integrations spanning multiple frameworks and deployment targets.
+        </p>
+      </div>
+
+      <div class="exp-cards reveal">
+        <!-- PKCERT -->
+        <div class="exp-card green">
+          <div class="exp-role">Software Engineer — Ongoing</div>
+          <div class="exp-company green">🛡️ PKCERT — Pakistan Emergency Response Team</div>
+          <div class="exp-period">[ Active Contributor · Cybersecurity Infrastructure ]</div>
+          <div class="exp-desc">
+            Contributing web development expertise to Pakistan's national cyber emergency
+            response infrastructure. Building and maintaining critical web-facing systems,
+            dashboards, and internal tooling for the national security response organization.
+          </div>
+        </div>
+
+        <!-- E-commerce -->
+        <div class="exp-card blue">
+          <div class="exp-role">Cross-Platform E-Commerce Developer</div>
+          <div class="exp-company blue">🛒 Multi-Platform Commerce Projects</div>
+          <div class="exp-period">[ React · Next.js · Node.js · REST APIs ]</div>
+          <div class="exp-desc">
+            Building and deploying production e-commerce systems across platforms —
+            full product catalogues, cart &amp; checkout flows, payment integration,
+            authentication, order management, and admin dashboards. Consistent delivery
+            across desktop and mobile breakpoints.
+          </div>
+        </div>
+
+        <!-- Studies -->
+        <div class="exp-card">
+          <div class="exp-role">Full-Stack Dev Student</div>
+          <div class="exp-company">🎓 Super Tech Institute — Rawalpindi</div>
+          <div class="exp-period">[ JavaScript-Focused Curriculum · MERN Stack ]</div>
+          <div class="exp-desc">
+            Following a structured 6–12 month curriculum covering the complete MERN stack,
+            TypeScript, Next.js, NestJS, PostgreSQL, Docker, and modern DevOps tooling.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <div class="section-label">// stack &amp; expertise</div>
+      <div class="divider"></div>
+      <h2 class="section-title">Technical Arsenal</h2>
+      <div class="level-legend">
+        <div class="legend-item">
+          <div class="legend-dot e"></div>Expert
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot a"></div>Advanced
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot i"></div>Intermediate
+        </div>
+      </div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">⚡</span> Frontend</div>
+        <div class="skill-tags">
+          <span class="tag expert">HTML5</span>
+          <span class="tag expert">CSS3</span>
+          <span class="tag expert">JavaScript (ES6+)</span>
+          <span class="tag expert">React.js</span>
+          <span class="tag advanced">TypeScript</span>
+          <span class="tag advanced">Next Js </span>
+          <span class="tag intermediate">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">🖥️</span> Backend</div>
+        <div class="skill-tags">
+          <span class="tag expert">Node.js</span>
+          <span class="tag expert">Express.js</span>
+          <span class="tag advanced">REST APIs</span>
+          <span class="tag advanced">JWT Auth</span>
+          <span class="tag intermediate">Socket.IO</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">🗄️</span> Databases</div>
+        <div class="skill-tags">
+          <span class="tag expert">MongoDB</span>
+          <span class="tag advanced">Mongoose ODM</span>
+          <span class="tag intermediate">PostgreSQL</span>
+          <span class="tag intermediate">MySQL</span>
+          <span class="tag intermediate">PrismaORM</span>
+
+
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">🛒</span> E-Commerce</div>
+        <div class="skill-tags">
+          <span class="tag expert">Cart &amp; Checkout Systems</span>
+          <span class="tag expert">Product Management</span>
+          <span class="tag advanced">Payment Integration</span>
+          <span class="tag advanced">Cross-Platform Deploy</span>
+          <span class="tag advanced">Admin Dashboards</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">🔧</span> DevOps &amp; Tools</div>
+        <div class="skill-tags">
+          <span class="tag advanced">Git · GitHub</span>
+          <span class="tag intermediate">Docker</span>
+          <span class="tag intermediate">GitHub Actions</span>
+          <span class="tag intermediate">Webpack</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">🛡️</span> Security &amp; Auth</div>
+        <div class="skill-tags">
+          <span class="tag expert">JWT (HTTP-only cookies)</span>
+          <span class="tag advanced">Auth Middleware</span>
+          <span class="tag advanced">Protected Routes</span>
+          <span class="tag intermediate">Web Security Basics</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <div class="section-label">// projects</div>
+      <div class="divider"></div>
+      <h2 class="section-title">Selected Work</h2>
+      <p class="section-sub">Real-world production websites built from scratch — design, development, and deployment.
+      </p>
+    </div>
+    <div class="projects-grid">
+
+      <!-- P1 -->
+      <a href="https://mhadi-developer.github.io/iSTUDIO/" target="_blank" class="project-card reveal">
+        <div class="project-thumb">
+          <div class="thumb-banner tb-1">🏠</div>
+          <div class="project-thumb-overlay"></div>
+          <div class="project-thumb-label">LIVE ↗</div>
+        </div>
+        <div class="project-body">
+          <div class="project-num">01 / Interior Design</div>
+          <div class="project-name">iSTUDIO — Interior Designing</div>
+          <div class="project-desc">
+            A premium interior design showcase website with elegant layout, project
+            galleries, and service presentation — crafted to convert visitors into clients.
+          </div>
+          <span class="project-link">Visit Live Site →</span>
+        </div>
+      </a>
+
+      <!-- P2 -->
+      <a href="https://mhadi-developer.github.io/Advance-Construction/" target="_blank" class="project-card reveal">
+        <div class="project-thumb">
+          <div class="thumb-banner tb-2">🏗️</div>
+          <div class="project-thumb-overlay"></div>
+          <div class="project-thumb-label">LIVE ↗</div>
+        </div>
+        <div class="project-body">
+          <div class="project-num">02 / Construction</div>
+          <div class="project-name">Advance Construction Co.</div>
+          <div class="project-desc">
+            Corporate construction company website featuring service breakdowns,
+            project portfolios, and a professional contact system built for trust and credibility.
+          </div>
+          <span class="project-link">Visit Live Site →</span>
+        </div>
+      </a>
+
+      <!-- P3 -->
+      <a href="https://mhadi-developer.github.io/assests/" target="_blank" class="project-card reveal">
+        <div class="project-thumb">
+          <div class="thumb-banner tb-3">🏥</div>
+          <div class="project-thumb-overlay"></div>
+          <div class="project-thumb-label">LIVE ↗</div>
+        </div>
+        <div class="project-body">
+          <div class="project-num">03 / Healthcare</div>
+          <div class="project-name">Nischinto — Medical Platform</div>
+          <div class="project-desc">
+            A clean, trustworthy medical website designed for patient communication,
+            service listing, and appointment guidance with accessibility at its core.
+          </div>
+          <span class="project-link">Visit Live Site →</span>
+        </div>
+      </a>
+
+      <!-- P4 -->
+      <a href="https://mhadi-developer.github.io/Project-ONE-Knight/" target="_blank" class="project-card reveal">
+        <div class="project-thumb">
+          <div class="thumb-banner tb-4">♟️</div>
+          <div class="project-thumb-overlay"></div>
+          <div class="project-thumb-label">LIVE ↗</div>
+        </div>
+        <div class="project-body">
+          <div class="project-num">04 / Agency</div>
+          <div class="project-name">ONE KNIGHT Agency</div>
+          <div class="project-desc">
+            A bold digital agency website with strategic messaging, service presentation,
+            and a sleek dark aesthetic designed to command attention and drive leads.
+          </div>
+          <span class="project-link">Visit Live Site →</span>
+        </div>
+      </a>
+
+      <!-- P5 -->
+      <a href="https://hotel-booking-six-green.vercel.app/" target="_blank" class="project-card reveal">
+        <div class="project-thumb">
+          <div class="thumb-banner tb-5">🏨</div>
+          <div class="project-thumb-overlay"></div>
+          <div class="project-thumb-label">LIVE ↗</div>
+        </div>
+        <div class="project-body">
+          <div class="project-num">05 / Hotel &amp; Hospitality</div>
+          <div class="project-name">Grand Maison — Hotel Booking Platform</div>
+          <div class="project-desc">
+            A full-stack luxury hotel booking system: React/TypeScript frontend, Node.js/Express
+            + Prisma/PostgreSQL backend, with a live Stripe checkout flow and Socket.IO-powered
+            real-time admin notifications. Client and admin panels are deployed as separate
+            Vercel projects sharing one Render-hosted API and database.
+          </div>
+          <span class="project-link">Visit Live Site →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-box reveal">
+      <div class="section-label">// contact</div>
+      <div class="divider" style="margin:0 auto 1.2rem;"></div>
+      <h2 class="section-title">Let's Build Something.</h2>
+      <p style="color:var(--muted);font-size:1.02rem;line-height:1.75;margin-bottom:.5rem;">
+        Available for freelance projects, collaborations, and full-time opportunities.
+        Whether it's an e-commerce platform, a web app, or something entirely new — let's talk.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:hadiquershi@gmail.com" class="contact-item">
+          <span class="ci">✉️</span> hadiquershi@gmail.com
+        </a>
+        <a href="tel:+923095361664" class="contact-item">
+          <span class="ci">📞</span> +92 309 5361664
+        </a>
+        <a href="https://github.com/mhadi-developer" target="_blank" class="contact-item">
+          <span class="ci">🐙</span> GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Muhammad Hadi · Full-Stack Developer</span>
+    <span style="color:var(--muted);">Rawalpindi, Pakistan · © 2025</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Nav shrink on scroll
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').style.padding =
+        window.scrollY > 60 ? '.8rem 5%' : '1.2rem 5%';
+    });
+
+    // Cursor glow follow
+    document.addEventListener('mousemove', (e) => {
+      const glow = document.getElementById('cursor-glow');
+      if (glow) { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; }
+    });
+  </script>
+
+  <!-- subtle cursor glow -->
+  <div id="cursor-glow" style="
+  position:fixed;width:300px;height:300px;
+  background:radial-gradient(circle,rgba(232,201,122,.04) 0%,transparent 70%);
+  border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);
+  z-index:9998;transition:left .08s,top .08s;
+"></div>
+
+</body>
+
+</html>
